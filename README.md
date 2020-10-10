@@ -1,30 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Readme
 
-## Getting Started
+A minimum reproduction of a problem I'm having in [another app](https://github.com/mrled/keymap.click).
 
-First, run the development server:
+In short, when using Tailwind on a Next.JS/React app created with `npx create-next-app`,
+and running that app in production mode with `npx next build && npx next start`,
+React measurements of DOM elements on the initial load are incorrect.
+On subsequent page loads or refreshes, React measurements are correct.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+I think what is happening is that the initial load is getting measurements before Tailwind styling is applied, while subsequent loads are having Tailwind styling applied first.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshot
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Here's a screenshot. The popup is coming from the Chrome dev tools and is correctly showing 344px high, while the text in the div itself is showing the measurement I made in the React component and is incorrectly showing 298px high.
 
-## Learn More
+![Screenshot](docs/screenshot.png?raw=true "Screenshot")
 
-To learn more about Next.js, take a look at the following resources:
+## Video demo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I recorded a video of the behavior being triggered by Tailwind.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[![Video of behavior in detail](https://img.youtube.com/vi/XLFrjlxBWB4/0.jpg)](https://www.youtube.com/watch?v=XLFrjlxBWB4)

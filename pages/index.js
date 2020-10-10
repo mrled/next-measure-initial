@@ -1,24 +1,21 @@
 import React, { useCallback, useState } from "react";
 
-/* The main component
+/* A single, simple component
  */
 export default function Home() {
+  // Keep the measured dimensions in React state
   const [measuredDivRect, setMeasuredDivRect] = useState(null);
+  // Use a callback to measure the dimensions on load
   const measuredDivRef = useCallback((node) => {
     if (node != null) setMeasuredDivRect(node.getBoundingClientRect());
   }, []);
-
+  // Get the height (or NULL for the server-side render)
   const measuredDivHeight = measuredDivRect ? measuredDivRect.height : "NULL";
-
-  const brCount = 12;
-  let brs = [];
-  for (let i = 0; i < brCount; i++) {
-    brs.push(<br key={i}></br>);
-  }
 
   return (
     <>
       <div
+        // Note that we are using React CSS, not Tailwind classes
         style={{ height: "100%", margin: "5rem" }}
         // className="h-full m-8"
       >
@@ -27,10 +24,19 @@ export default function Home() {
           // className="p-4 bg-blue-300"
           ref={measuredDivRef}
         >
-          <div>
-            <p>div height: {measuredDivHeight}</p>
-            {brs}
-          </div>
+          <p>div height: {measuredDivHeight}</p>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </div>
       </div>
     </>

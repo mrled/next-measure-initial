@@ -1,14 +1,21 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 /* A single, simple component
  */
 export default function Home() {
   // Keep the measured dimensions in React state
   const [measuredDivRect, setMeasuredDivRect] = useState(null);
-  // Use a callback to measure the dimensions on load
-  const measuredDivRef = useCallback((node) => {
-    if (node != null) setMeasuredDivRect(node.getBoundingClientRect());
-  }, []);
+  const measuredDivRef = useRef();
+  useLayoutEffect(() => {
+    setMeasuredDivRect(
+      measuredDivRef && measuredDivRef.current
+        ? measuredDivRef.current.getBoundingClientRect()
+        : null
+    );
+  }, [measuredDivRef.current]);
+  // const measuredDivRef = useCallback((node) => {
+  //   if (node != null) setMeasuredDivRect(node.getBoundingClientRect());
+  // }, []);
   // Get the height (or NULL for the server-side render)
   const measuredDivHeight = measuredDivRect ? measuredDivRect.height : "NULL";
 
@@ -16,12 +23,13 @@ export default function Home() {
     <>
       <div
         // Note that we are using React CSS, not Tailwind classes
-        style={{ height: "100%", margin: "5rem" }}
-        // className="h-full m-8"
+        //style={{ height: "100%", margin: "5rem" }}
+        className="h-full m-8"
       >
         <div
-          style={{ padding: "1rem", backgroundColor: "lightblue" }}
-          // className="p-4 bg-blue-300"
+          // style={{ padding: "1rem", backgroundColor: "lightblue" }}
+          // className="min-repro-test"
+          className="p-4 bg-blue-300"
           ref={measuredDivRef}
         >
           <p>div height: {measuredDivHeight}</p>
